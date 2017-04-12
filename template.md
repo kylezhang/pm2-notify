@@ -1,5 +1,7 @@
-## <%= process.name %> <%= process.NODE_ENV %> <%= event %>
+## <%= process.name %> <%= process.NODE_ENV %> <%= event %>-`<%= process.status %>`
 - ProcessName: `<%= process.name %>`, ProcessId: `<%= process.pm_id %>`
+- User: `<%= process.USER %>`
+- Status: `<%= process.status %>`
 - Error Time: `<%= date %>`
 - Up Time: `<%= process.pm_uptime %>`
 - Restart Count: `<%= process.restart_time %>`

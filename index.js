@@ -1,6 +1,7 @@
 var pm2         = require('pm2');
 var moment      = require('moment');
 var hostname    = require('os').hostname();
+var path        = require('path');
 var nodemailer  = require('nodemailer');
 var markdown    = require('nodemailer-markdown').markdown;
 var config       = require('yamljs').load(__dirname + '/config.yml');
@@ -8,7 +9,6 @@ var _           = require('lodash');
 var template    = require('fs').readFileSync(config.template);
 var async       = require('async');
 var util        = require('util');
-var p           = require('path');
 
 // var transporter = nodemailer.createTransport(config.mail.smtp);
 var transporter = nodemailer.createTransport(require('nodemailer-smtp-transport')(config.mail.smtp))
@@ -70,7 +70,8 @@ function processQueue(cb) {
     var text = queue.map(mail => mail.text).join('\n');
     var attachments = [];
     if (config.attach_logs) {
-        attachments = _.chain(queue)
+        attachments = _
+            .chain(queue)
             .flatMap(mail => mail.attachments)
             .uniqBy('path').value();
     }
@@ -107,7 +108,7 @@ pm2.launchBus(function(err, bus) {
                 e.attachments = [];
                 ['pm_out_log_path', 'pm_err_log_path'].forEach(function(log) {
                     e.attachments.push({
-                        filename: p.basename(e.process[log]),
+                        filename: path.basename(e.process[log]),
                         path: e.process[log]
                     });
                 });
