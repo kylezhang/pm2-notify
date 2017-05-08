@@ -11,13 +11,13 @@ const async       = require('async')
 const util        = require('util')
 const sendMailAD  = require('./mail')
 
-var transporter = nodemailer.createTransport(require('nodemailer-smtp-transport')(config.mail.smtp))
+const transporter = nodemailer.createTransport(require('nodemailer-smtp-transport')(config.mail.smtp))
 transporter.use('compile', markdown({
     useEmbeddedImages: true
 }))
 
-var queue = []
-var busy = false
+let queue = []
+let busy = false
 
 /**
  * Compile template
@@ -25,7 +25,7 @@ var busy = false
  * @param object data
  */
 function compile(template, data) {
-    var s = _.template(template)
+    let s = _.template(template)
     data.date = moment(new Date(data.date)).format('YYYY-MM-DD HH:mm:ss')
     data.process.pm_uptime = moment(data.process.pm_uptime).format('YYYY-MM-DD HH:mm:ss')
     return s(data)
@@ -65,9 +65,9 @@ function processQueue(cb) {
     busy = true
 
     //Concat texts, get the multiple subject
-    var subject = compile(config.subject, queue[0])
-    var text = queue.map(mail => mail.text).join('\n')
-    var attachments = []
+    const subject = compile(config.subject, queue[0])
+    const text = queue.map(mail => mail.text).join('\n')
+    let attachments = []
     if (config.attach_logs) {
         attachments = _
             .chain(queue)
