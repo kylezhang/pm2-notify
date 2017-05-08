@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "SMTP PM2 notifier",
   "main": "index.js",
+  "engines": {"node": "6.10.x"},
   "dependencies": {
     "async": "^1.2.1",
     "lodash": "^4.17.4",
