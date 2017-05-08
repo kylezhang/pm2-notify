@@ -1,4 +1,4 @@
-## <%= process.name %> <%= process.NODE_ENV %> <%= event %>-`<%= process.status %>`
+# <%= process.name %> <%= process.NODE_ENV %> <%= event %>-`<%= process.status %>`
 - ProcessName: `<%= process.name %>`, ProcessId: `<%= process.pm_id %>`
 - User: `<%= process.USER %>`
 - Status: `<%= process.status %>`
